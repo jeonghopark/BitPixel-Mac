@@ -38,7 +38,7 @@ using namespace Tonic;
 
 
 class ofApp : public ofBaseApp{
-
+    
     ofxTonicSynth synth1;
     ofxTonicSynth synth2;
     ofxTonicSynth synth3;
@@ -65,7 +65,7 @@ public:
     void gotMessage(ofMessage msg);
     
     void audioRequested (float * output, int bufferSize, int nChannels);
-
+    
     
     bool bPlayNote;
     bool bCameraCapturePlay;
@@ -77,7 +77,7 @@ public:
     ControlGenerator metro;
     ofEvent<float> * metroOut;
     void triggerReceive(float & metro);
-
+    
     int index;
     int noteIndex;
     
@@ -94,7 +94,7 @@ public:
     ofxCvColorImage faceCam;
     
     ofPixels cannyInverted;
-
+    
     ofImage edge;
     ofImage printCam;
     
@@ -220,7 +220,7 @@ public:
     
     void debugInformation();
     
-
+    
     
     void guiSetting();
     ofxPanel gui;
@@ -233,35 +233,35 @@ public:
     ofParameter<string> frameRate;
     ofParameter<string> noteNum;
     ofParameter<string> faceNum;
-
+    
     void changedBaseNum(int & param);
     bool bChangedBaseNum;
     
     
     ofParameterGroup parameters2;
     ofParameter<float> thresholdF2;
-
+    
     
     
     
     vector<melody> melodies;
-
+    
     void checkSameNote( vector<int> _vNote, ofxTonicSynth _synthIn, int _scoreCh );
     
     int notePosition(int _note, int _stepLine);
     
     
     ofxCv::ObjectFinder faceFind;
-  
+    
     int changedCamW, changedCamH;
     
-
+    
     bool debugView;
     
-
+    
     ofVec2f faceCenter;
     
-
+    
     
     
     

@@ -9,6 +9,6 @@ int main( ){
     
     ofCreateWindow(settings);
     
-	ofRunApp( new ofApp());
+    ofRunApp( new ofApp());
     
 }

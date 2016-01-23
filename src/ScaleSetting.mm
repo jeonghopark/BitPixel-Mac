@@ -98,7 +98,7 @@ int ScaleSetting::noteSelector(int _n, int _index, int _subIndex){
             }
             
             break;
-
+            
         case 5:
             switch (_index) {
                 case 1:
@@ -202,7 +202,7 @@ int ScaleSetting::noteSelector(int _n, int _index, int _subIndex){
             }
             
             break;
-
+            
         case 9:
             switch (_index) {
                     
@@ -252,7 +252,7 @@ void ScaleSetting::changeScale(){
     for (int i=0; i<2; i++){
         scale47[i] = scale47[i] + octaveScale[6];
     }
-
+    
     
     for (int i=0; i<5; i++){
         scale51[i] = scale51[i] + octaveScale[0];
@@ -295,7 +295,7 @@ void ScaleSetting::changeScale(){
     for (int i=0; i<2; i++){
         scale85[i] = scale85[i] + octaveScale[4];
     }
-
+    
     for (int i=0; i<9; i++){
         scale91[i] = scale91[i] + octaveScale[0];
         scale92[i] = scale92[i] + octaveScale[1];
@@ -305,5 +305,5 @@ void ScaleSetting::changeScale(){
     for (int i=0; i<2; i++){
         scale95[i] = scale95[i] + octaveScale[4];
     }
-
+    
 }
