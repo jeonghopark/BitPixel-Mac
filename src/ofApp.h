@@ -4,8 +4,10 @@
 #include "ofxCv.h"
 #include "ofxOpenCv.h"
 #include "ofxTonic.h"
+#include "ofxGui.h"
 
 #include "ScaleSetting.h"
+
 
 struct blackWhitePixels{
     int indexPos;
@@ -19,6 +21,16 @@ struct colorPixels{
     int pixelN;
     int firstValue;
     vector<int> numberPixels;
+};
+
+
+struct melody{
+    vector<int> melodyLine;
+};
+
+
+struct noteList{
+    vector<int> noteArray;
 };
 
 
@@ -36,12 +48,11 @@ class ofApp : public ofBaseApp{
     ofxTonicSynth synth7;
     ofxTonicSynth synthMain;
     
-    const bool WHITE_VIEW = true;
-
 public:
     void setup();
     void update();
     void draw();
+    void exit();
     
     void keyPressed(int key);
     void keyReleased(int key);
@@ -61,23 +72,14 @@ public:
     
     
     // ofxTonic
-    ofxTonicSynth createSynthVoiceIn();
-    ofxTonicSynth controlSynthParameter;
     void synthSetting();
     ControlGenerator bpm;
     ControlGenerator metro;
     ofEvent<float> * metroOut;
     void triggerReceive(float & metro);
+
     int index;
     int noteIndex;
-    int oldNoteIndex1;
-    int oldNoteIndex2;
-    int oldNoteIndex3;
-    int oldNoteIndex4;
-    int oldNoteIndex5;
-    int oldNoteIndex6;
-    int oldNoteIndex7;
-    void noteTrigger();
     
     
     // Main
@@ -86,7 +88,25 @@ public:
     
     //openCV
     ofVideoGrabber cam;
+    
+    ofxCvColorImage camColorCV;
+    ofxCvColorImage centerCam;
+    ofxCvColorImage faceCam;
+    
+    ofPixels cannyInverted;
+
     ofImage edge;
+    ofImage printCam;
+    
+    
+    ofImage printImage;
+    
+    
+    ofxCvColorImage downScaleCam;
+    ofImage downScaleCanny;
+    ofImage downScaleEdge;
+    ofPixels downGray;
+    
     ofPixels gray;
     bool camOpen;
     float cannyThreshold1;
@@ -107,7 +127,7 @@ public:
     int pixelCircleSize;
     
     //Video
-    int videoGrabberW, videoGrabberH, camSize, changedCamSize;
+    int camSize, changedCamSize;
     float cameraScreenRatio;
     
     
@@ -155,7 +175,6 @@ public:
     void drawShape(ofPoint pos, int base, int size);
     void drawPixelAllNoteShape();
     void drawPixelAllNoteShapes( vector<int> _vNote, int _scoreCh );
-    void drawPixelShapeColorSize();
     
     
     int baseSelection;
@@ -169,22 +188,17 @@ public:
     
     // Line Score
     void drawLineScore();
-    float oldScoreNote1, oldScoreNote2, oldScoreNote3, oldScoreNote4, oldScoreNote5, oldScoreNote6, oldScoreNote7;
     
-    vector<int> scoreNote1, scoreNote2, scoreNote3, scoreNote4, scoreNote5, scoreNote6, scoreNote7;
+    vector<int> oldScoreNote;
+    vector<noteList> noteLists;
+    
     int lineScoreStepX, lineScoreStepY;
     void scoreMake();
-    void noteTrig();
     
     
     int intervalDist;
     
     ScaleSetting scaleSetting;
-    
-    
-    int playOldNote1;
-    int drawOldPointNote1;
-    int drawOldLineNote1;
     
     
     void drawScoreCircleLine( vector<int> _vNote, int _scoreCh );
@@ -193,22 +207,62 @@ public:
     
     float pixeShapeSize;
     
-    ofImage backgroundControPanel;
-    
-    
     int lineScoreNumber;
-    
-    bool bIPhone;
-    float shiftValueIphoneY;
-    
-    //    ofSoundStream soundStream;
     
     
     float touchDownDefault;
     
-    vector<ofVec2f> touchPos;
     vector<bool> ctrlSlider;
-    float distS[2];
-    float distI[2];
+    
+    
+    bool allPlayOnOff;
+    
+    
+    void debugInformation();
+    
 
+    
+    void guiSetting();
+    ofxPanel gui;
+    ofParameterGroup parametersMain;
+    ofParameterGroup parameters;
+    
+    ofParameter<float> thresholdF;
+    ofParameter<float> mainVolume;
+    ofParameter<int> baseNum;
+    ofParameter<string> frameRate;
+    ofParameter<string> noteNum;
+    ofParameter<string> faceNum;
+
+    void changedBaseNum(int & param);
+    bool bChangedBaseNum;
+    
+    
+    ofParameterGroup parameters2;
+    ofParameter<float> thresholdF2;
+
+    
+    
+    
+    vector<melody> melodies;
+
+    void checkSameNote( vector<int> _vNote, ofxTonicSynth _synthIn, int _scoreCh );
+    
+    int notePosition(int _note, int _stepLine);
+    
+    
+    ofxCv::ObjectFinder faceFind;
+  
+    int changedCamW, changedCamH;
+    
+
+    bool debugView;
+    
+
+    ofVec2f faceCenter;
+    
+
+    
+    
+    
 };
