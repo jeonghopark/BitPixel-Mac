@@ -153,10 +153,21 @@ void ofApp::setup(){
     
     debugView = true;
     
-    ofSoundStreamSetup(2, 0, this, 44100, 256, 4);
+//    ofSoundStreamSetup(2, 0, this, 44100, 256, 4);
     
-    
-    
+
+    ofSoundStreamSettings settings;
+//    auto devices = soundStream.getMatchingDevices("default");
+    auto devices = soundStream.getDeviceList();
+    if(!devices.empty()){
+        settings.setOutDevice(devices[1]);
+    }
+    settings.setOutListener(this);
+    settings.sampleRate = 44100;
+    settings.numOutputChannels = 2;
+    settings.numInputChannels = 0;
+    settings.bufferSize = 256;
+    soundStream.setup(settings);
     
     baseNum.addListener(this, &ofApp::changedBaseNum);
     bChangedBaseNum = false;
@@ -1198,11 +1209,13 @@ void ofApp::debugControlPDraw(){
 
 
 
+//--------------------------------------------------------------
 void ofApp::audioRequested (float * output, int bufferSize, int nChannels){
     
     synthMain.fillBufferOfFloats(output, bufferSize, nChannels);
     
 }
+
 
 
 //--------------------------------------------------------------

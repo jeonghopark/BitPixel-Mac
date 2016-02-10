@@ -66,6 +66,10 @@ public:
     
     void audioRequested (float * output, int bufferSize, int nChannels);
     
+//    void audioOut(ofSoundBuffer & buffer);
+    
+    
+    ofSoundStream soundStream;
     
     bool bPlayNote;
     bool bCameraCapturePlay;
