@@ -37,7 +37,7 @@ void ofApp::setup(){
     
     cam.setDeviceID(0);
     
-    cam.setup( 800, 600 );
+    cam.setup( 800, 600 ); // 4:3 ??? for External Webcam (C910)
     cam.setDesiredFrameRate(30);
     
     screenW = 600;
